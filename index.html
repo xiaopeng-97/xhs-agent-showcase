@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书选题仿写员 · Agent 展示</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--card2:#1e222b;--line:#2a2f3a;--txt:#e8eaed;--sub:#9aa3b2;--accent:#ff2e51;--accent2:#4f8cff;--ok:#2ecc71;--warn:#f5a623;--chip:#242a35;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{padding:64px 0 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -50px,rgba(255,46,81,.18),transparent)}
+.badge{display:inline-block;font-size:13px;color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:18px}
+.hero h1{font-size:38px;font-weight:800;letter-spacing:.5px;margin-bottom:12px}
+.hero .tag{color:var(--accent)}
+.hero p{color:var(--sub);font-size:17px;max-width:640px;margin:0 auto 26px}
+.cta{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{border:0;cursor:pointer;font-size:15px;font-weight:600;border-radius:10px;padding:12px 22px;transition:.15s}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{filter:brightness(1.08)}
+.btn-g{background:var(--card2);color:var(--txt);border:1px solid var(--line)}
+.btn-g:hover{border-color:var(--accent2)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:24px;margin-bottom:8px}
+.lead{color:var(--sub);margin-bottom:24px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{font-size:17px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card p{color:var(--sub);font-size:14px}
+.role{font-size:12px;color:var(--accent2);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.metric{font-size:30px;font-weight:800;color:var(--accent)}
+.metric small{font-size:13px;color:var(--sub);font-weight:500}
+.phone{max-width:420px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.phone .bar{background:var(--card2);padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff2e51,#ff7a3c);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:14px}
+.bar .nm{font-weight:700;font-size:15px}
+.bar .st{font-size:12px;color:var(--ok)}
+.chat{padding:16px;height:460px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:#12141a}
+.msg{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;white-space:pre-wrap;animation:pop .3s ease}
+.me{align-self:flex-end;background:var(--accent2);color:#fff;border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:var(--card2);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bot.sys{color:var(--sub);font-size:12.5px;border-style:dashed}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:4px 6px;text-align:left}
+.tbl th{color:var(--accent)}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.typing{align-self:flex-start;color:var(--sub);font-size:13px;padding:6px 12px}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sub);margin:0 1px;animation:blink 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.demo-ctl{text-align:center;margin-top:18px}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+.step{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px}
+.arrow{color:var(--sub)}
+.safe{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.3);border-radius:10px;padding:14px 16px;font-size:14px;color:#8be0ae}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.clean li{padding-left:22px;position:relative;color:var(--sub);font-size:14px}
+ul.clean li:before{content:"\203A";position:absolute;left:6px;color:var(--accent)}
+footer{padding:36px 0;text-align:center;color:var(--sub);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap">
+<span class="badge">生财有术 · AI Agent 架构师航海 作品展示</span>
+<h1>小红书<span class="tag">选题仿写员</span></h1>
+<p>给一批关键词，它自动采集小红书爆款笔记、分析选题、产出原创仿写草稿，并整理进飞书多维表格。全程飞书对话可见，人工确认后发布。</p>
+<div class="cta"><button class="btn btn-p" onclick="runDemo()">▶ 播放实时演示</button><a class="btn btn-g" href="#how">了解它怎么工作</a></div>
+<p style="font-size:12px;margin-top:18px;opacity:.7">本页为静态展示，演示对话为真实运行录像还原，不接入任何 API、不暴露账号数据，他人无法调用。</p>
+</div></div>
+
+<section id="what"><div class="wrap">
+<h2>它是什么</h2>
+<p class="lead">一个专职做小红书内容前端调研与仿写的数字员工——一机一职，只做这一件事。</p>
+<div class="grid g3">
+<div class="card"><div class="metric">2.5h→15min</div><p style="margin-top:6px">一组关键词（3个词+找达标笔记+3篇仿写）的耗时，从手工约2.5小时降到约15分钟。</p></div>
+<div class="card"><div class="metric">100%<small> 数据真实</small></div><p style="margin-top:6px">互动数据为真实抓取，达标少如实报数，绝不编造、不放宽门槛充数。</p></div>
+<div class="card"><div class="metric">3<small> 篇原创仿写</small></div><p style="margin-top:6px">每组按实用清单/情绪共鸣/场景故事三种差异化角度产出原创草稿，非搬运。</p></div>
+</div>
+</div></section>
+
+<section id="how"><div class="wrap">
+<h2>三个工具怎么分工</h2>
+<p class="lead">脸、大脑身体、后勤各司其职，这是它稳定运行的关键。</p>
+<div class="grid g3">
+<div class="card"><div class="role">前台 · 脸</div><h3>🗨️ 飞书机器人</h3><p>「小红书采集二创」——你在这里下指令、看进度、收成果。所有过程飞书可见。</p></div>
+<div class="card"><div class="role">大脑 + 身体</div><h3>🧠 Hermes + xhs</h3><p>加载岗位说明书与技能脚本，真正执行采集、分析、仿写、写入多维表格。</p></div>
+<div class="card"><div class="role">后勤 · 工头</div><h3>🛠️ Codex</h3><p>装/修工具、配 profile、盯日志排错、把指令注入飞书。不替 Agent 干活。</p></div>
+</div>
+<div style="margin-top:24px" class="flow">
+<div class="step">① 飞书下指令</div><span class="arrow">→</span>
+<div class="step">② 校验登录</div><span class="arrow">→</span>
+<div class="step">③ 采集爆款</div><span class="arrow">→</span>
+<div class="step">④ 清洗筛选</div><span class="arrow">→</span>
+<div class="step">⑤ 选题分析</div><span class="arrow">→</span>
+<div class="step">⑥ 原创仿写</div><span class="arrow">→</span>
+<div class="step">⑦ 归档表格·待审发布</div>
+</div>
+</div></section>
+
+<section id="demo"><div class="wrap">
+<h2>实时演示</h2>
+<p class="lead">下面是一次真实运行的还原（数据取自 2026-08-26 第一组「学习资料」）。点按钮播放。</p>
+<div class="phone"><div class="bar"><div class="avatar">红</div><div><div class="nm">小红书采集二创</div><div class="st">● 在线</div></div></div>
+<div class="chat" id="chat"></div></div>
+<div class="demo-ctl"><button class="btn btn-p" onclick="runDemo()">▶ 重新播放演示</button></div>
+</div></section>
+
+<section id="io"><div class="wrap">
+<h2>输入 / 触发方式</h2>
+<div class="grid g2">
+<div class="card"><h3>你需要给什么</h3><ul class="clean">
+<li>关键词清单：3个同方向词，如「小学语文资料、小学数学资料、幼小衔接资料」</li>
+<li>采集门槛：如「近1个月内、赞+评+藏合计≥3500」</li>
+<li>目标人群：如「小学生家长和老师」</li>
+<li>归档去向：默认写入飞书多维表格</li></ul></div>
+<div class="card"><h3>怎么让它开工</h3><ul class="clean">
+<li>在飞书「小红书采集二创」对话发一条完整指令</li>
+<li>首次或 cookie 失效：扫码登录小红书</li>
+<li>它自动跑完并回传多维表格链接</li>
+<li>发布前逐条人工审核，"通过"才发</li></ul></div>
+</div>
+</div></section>
+
+<section id="edge"><div class="wrap">
+<h2>能力边界（做不了 / 需人工）</h2>
+<div class="grid g2">
+<div class="card"><h3>它不会做</h3><ul class="clean">
+<li>不绕风控、不用代理池、不高频批量请求</li>
+<li>不做无人值守全自动发布</li>
+<li>不编造数据、不放宽门槛充数、不用推荐流冒充搜索</li>
+<li>不改自身 profile / 密钥 / 配置</li></ul></div>
+<div class="card"><h3>需要人工介入</h3><ul class="clean">
+<li>cookie 失效 → 人工扫码登录</li>
+<li>采集为空或风控 → 人工切手动采集</li>
+<li>方向/关键词/人群调整 → 人工给意见</li>
+<li>发布前 → 人工逐条审核放行</li></ul></div>
+</div>
+<div style="margin-top:16px" class="safe">🔒 安全说明：本展示页为纯静态页面，演示对话为预置录像还原，不连接 Hermes、不调用飞书或小红书 API、不包含任何 cookie / token / 密钥。他人无法通过本页调用你的 Agent 或读取数据。</div>
+</div></section>
+
+<footer><div class="wrap">
+小红书选题仿写员 · v1.0　|　生财有术《AI Agent 架构师》航海作品<br>
+技术栈：Hermes Agent + 飞书机器人 + Codex　|　更新于 2026-08-26
+</div></footer>
+
+<script>
+const chat=document.getElementById('chat');
+const script=[
+{who:'me',text:'开始采集任务。\n关键词：小学语文资料、小学数学资料、幼小衔接资料\n门槛：近1个月内、赞+评+藏合计≥3500\n目标人群：小学生家长和老师'},
+{who:'sys',text:'✅ [login] OK　登录态有效（check_login.py 复核通过）'},
+{who:'bot',text:'收到 ✅ 本次关键词：小学语文资料 / 小学数学资料 / 幼小衔接资料。门槛：近30天、互动≥3500。开始采集…'},
+{who:'sys',text:'🔎 collect.py 运行中：搜索命中 204 条，按爆款分排序、剔除无关与超期…'},
+{who:'bot',text:'📊 采集完成：204 条命中 → 通过门槛 4 条。\n⚠️ 如实说明：8月该方向爆款偏少，达标仅4条，未放宽门槛。'},
+{who:'bot',table:true},
+{who:'sys',text:'✍️ 生成 3 篇原创仿写（实用清单 / 情绪共鸣 / 场景故事）…'},
+{who:'bot',text:'✅ 第一组完成！已归档飞书多维表格：\n采集数据 4 条 · 仿写文案 3 篇 · 选题报告 report.md\n质量自检：相关率100% · 原创非搬运 · 标题≤15字带emoji · 正文口语化 ✅'}
+];
+const tableHTML='采集达标明细：<table class="tbl"><tr><th>关键词</th><th>标题</th><th>互动</th></tr>'+
+'<tr><td>小学数学</td><td>🤔考公邪修之数量关系看小学奥数</td><td>7,479</td></tr>'+
+'<tr><td>幼小衔接</td><td>幼升小数学别瞎练 吃透这套就够</td><td>5,689</td></tr>'+
+'<tr><td>小学语文</td><td>一年级基础知识整理</td><td>5,218</td></tr>'+
+'<tr><td>小学数学</td><td>二年级必考19种思维题合集</td><td>3,955</td></tr></table>';
+let timer=null;
+function add(m){const d=document.createElement('div');
+if(m.table){d.className='msg bot';d.innerHTML=tableHTML;}
+else{d.className='msg '+(m.who==='me'?'me':(m.who==='sys'?'bot sys':'bot'));d.textContent=m.text;}
+chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function typing(){const t=document.createElement('div');t.className='typing';t.id='typing';
+t.innerHTML='对方正在输入<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+chat.appendChild(t);chat.scrollTop=chat.scrollHeight;}
+function rmTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+function runDemo(){if(timer)clearTimeout(timer);chat.innerHTML='';let i=0;
+function next(){if(i>=script.length)return;const m=script[i];
+if(m.who==='me'){add(m);i++;timer=setTimeout(next,700);}
+else{typing();timer=setTimeout(()=>{rmTyping();add(m);i++;timer=setTimeout(next,650);},900);}}
+next();}
+window.addEventListener('load',()=>setTimeout(runDemo,600));
+</script>
+</body></html>
